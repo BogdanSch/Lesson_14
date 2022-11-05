@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<input type="button" name="bb" onclick="check()" value="Угадай букву">
+		<div id="answ"></div>
+		<div id="rem"></div>
+		<script type="text/javascript">
+			var word = "прокрастинация";			
+			var remain = word.length ;
+			var answer = [];
+			var guess = "";
+			answer[0] = word[0];
+			answer[word.length - 1] = word[word.length - 1];
+			for (var i = 1; i < word.length - 1; i++) {
+				answer[i] = "_";
+			}
+			var answ = document.getElementById("answ");
+			var rem = document.getElementById("rem");
+			answ.innerHTML = answer.join(" ");
+			rem.innerHTML = remain;
+			function check() {
+				guess = prompt("");
+				for (var i = 1; i < word.length-1; i++) {
+					if (word[i] === guess) {
+						answer[i] = guess;
+						remain--;
+					}
+				}				
+				answ.innerHTML = answer.join(" ");
+				rem.innerHTML = remain;
+			}
+			
+		</script>
+	</body>
+</html>
