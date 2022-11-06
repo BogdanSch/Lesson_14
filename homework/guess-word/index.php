@@ -1,16 +1,18 @@
 <?php
 
 $word = "exploration";
-$remain = strlen($word);
+
+$count = 0;
+$remain = strlen($word) - 2;
 $answer = [];
 $answer[0] = $word[0];
-$answer[strlen($word) - 1] = $word[strlen($word) - 1];
-
 for ($i = 1; $i < strlen($word) - 1; $i++) { 
     $answer[$i] = '_';
 }
+$answer[strlen($word) - 1] = $word[strlen($word) - 1];
 
 if(isset($_POST['Submit'])){
+    $count = $_POST['count'] + 1;
     $letter = $_POST['letter'];
     $answer = explode(",", $_POST['answer']);
     $remain = $_POST['remain'];
@@ -39,15 +41,21 @@ if(isset($_POST['Submit'])){
         for ($i = 0; $i < count($answer); $i++) { 
             echo $answer[$i]." ";            
         }
-        print "<br>".$answer[count($answer) - 1];
         print "</p>"
     ?>
     <?= 'Remains: '.$remain ?>
+    <?php
+         if($remain == 0){
+            echo "<h1>You won!</h1>";
+        }
+        echo "<h3>$count| Move</h3>"
+    ?>
     <form action="index.php" method="POST">
         <label for="letter">Enter the letter: 
             <input type="text" name="letter">
             <input type="hidden" name="answer" value="<?= implode(",", $answer) ?>">
             <input type="hidden" name="remain" value="<?= $remain ?>">
+            <input type="hidden" name="count" value="<?= $count ?>">
         </label>
         <input type="submit" name="Submit" value="Check">
     </form>
